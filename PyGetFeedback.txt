@@ -1,0 +1,44 @@
+import json
+import boto3
+import base64
+import string
+import random
+import uuid
+from boto3.dynamodb.types import TypeSerializer, TypeDeserializer
+
+ts= TypeSerializer()
+td = TypeDeserializer()
+
+data= {"id": "5000"}
+serialized_data= ts.serialize(data)
+print(serialized_data)
+#{'M': {'id': {'S': '5000'}}}
+deserialized_data= td.deserialize(serialized_data)
+print(deserialized_data)
+#{'id': '5000'}
+
+ddbclient = boto3.client('dynamodb')
+dynamodb = boto3.resource('dynamodb')
+
+def lambda_handler(event, context):
+    paginator = ddbclient.get_paginator('scan')
+    table = dynamodb.Table('Feedback');
+    response_table = table.scan()
+    #iterator = paginator.paginate(TableName='Feedback')
+
+    #for page in iterator:
+    #    for item in page['Items']:
+    #        print (json.dumps(item))
+    
+    response = table.get_item(
+        Key={
+            'id' : '9b789ab5-5c4a-434d-9a7a-e208b93d6939'
+            }
+        )
+    print (json.dumps(response_table))  
+    
+    return {
+         'statusCode' : 200,
+         'body' : json.dumps(response_table)
+        
+    }
