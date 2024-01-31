@@ -1,0 +1,173 @@
+<style>
+    body { 
+        margin: 30; 
+        display: flex; 
+        align-items: center; 
+        justify-content: space-around; 
+        flex-direction: column; 
+        height: 120vh; 
+        width: 100% ;
+        background-color: #fafefc; 
+        font-family: 'Poppins', sans-serif; 
+    
+    } 
+
+  .header {
+  padding: 5px;
+  text-align: center;
+  
+  color: rgb(11, 118, 11);
+  font-size: 30px;
+  max-width: 500px; 
+}
+    
+    .textup { 
+        text-align: center; 
+        color: rgb(11, 118, 11); 
+        font-weight: 700; 
+    } 
+    
+    i { 
+        margin-right: 3px; 
+    } 
+    
+    .form-box { 
+        background-color: #fff; 
+        box-shadow: 0 0 10px rgba(36, 67, 40, 0.8); 
+        padding: 15px; 
+        border-radius: 8px; 
+        width: 500px; 
+    } 
+    
+    form { 
+        max-width: 500px; 
+        margin: 15 auto;
+        padding: 65px; 
+        background-color: #bde5d2; 
+ 
+    } 
+    
+    .radio-group { 
+        display: flex; 
+        margin-bottom: 16px; 
+    } 
+    
+    input[type="radio"] { 
+        margin-right: 8px; 
+    } 
+    
+    label { 
+        display: block; 
+        margin-bottom: 8px; 
+        font-size: 17px; 
+        color: green; 
+        font-weight: 600; 
+    } 
+    
+    input, 
+    textarea { 
+        width: 100%; 
+        padding: 8px; 
+        margin-bottom: 12px; 
+        box-sizing: border-box; 
+        border-radius: 10px; 
+    } 
+    
+    button { 
+        background-color: #368b44; 
+        color: #fff; 
+        padding: 10px; 
+        border: none; 
+        border-radius: 25px; 
+        cursor: pointer; 
+        width: 100%; 
+        font-size: 15px; 
+        transition: .2s linear; 
+    } 
+    
+    button:hover { 
+        background-color: #0a6808; 
+        border: none; 
+        transform: translateY(-10px); 
+    } 
+    
+    h1 { 
+        color: green; 
+    }
+    </style>
+    
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+        </script>
+    </head>
+      <body width="50%">
+
+
+          <form action="" class="form" method="post" id="feedbackForm">
+            <div class="header">
+                <p>Feedback Form</p>
+              </div>
+              <p>Advisory information.</p>
+              
+            <p align="right"><a href="https://feedback.auth.eu-north-1.amazoncognito.com/logout?client_id=3hkmd2u1aqvl2r1k6ipf5ha8qp&logout_uri=https://staticfeedback.s3.eu-north-1.amazonaws.com/logout.html">Logout </a></a></p>
+        </p></p>
+
+            <label for="name" class="form__label">Name</label>
+            <input type="text" placeholder="Name" class="form__input" id="name" />
+    
+            <label for="email" class="form__label">Email</label>
+            <input type="email" placeholder="Email" class="form__input" id="email" />
+            <label for="subject" class="form__label">Subject</label>
+            <input type="text" placeholder="Subject" class="form__input" id="subject" />
+          </p></p>
+            <label for="like_least_about_event" class="form-label">What did you like least about the event?</label>
+            <textarea name="like_least_about_event" class="form-control" id="like_least_about_event" rows="6"></textarea>
+    
+            <label for="suggestions" class="form-label">Your suggestions for improving future events</label>
+            <textarea name="suggestions" class="form-control" id="suggestions" rows="6"></textarea>
+            <label for="topic_suggestions" class="form-label">Which topics or speakers would you like to see at future events?</label>
+            <textarea name="topic_suggestions" class="form-control" id="topicSuggestions" rows="6"></textarea>
+            <input type="checkbox" class="form-check-input" name="notify_future_events" id="notify_future_events"/>
+            <label for="notify_future_events" class="form-check-label">Would you like to be notified about future events?</label>
+            </script>
+            <button type="button" onClick="submitFeedback(event)" class="btn btn-lg" style="margin-top:20px;">Submit</button>
+    
+    
+        </div>
+    
+    <script type="text/javascript">
+    function submitFeedback(e) {
+
+
+    var name = document.getElementById('name').value;;
+    var subject = document.getElementById('subject').value;;
+    var email = document.getElementById('email').value;
+    var suggestion = document.getElementById('suggestions').value;
+    var topicSuggestion = document.getElementById('topicSuggestions').value;
+    var likeEvent = document.getElementById('like_least_about_event').value;
+
+    var data = {
+       'name' : name,
+       'subject' : subject,
+       'email' : email,
+       'topicSuggestion' : topicSuggestion,
+       'likeEvent' : likeEvent,
+       'suggestions' : suggestions
+     };
+    
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+         if (this.readyState == 4 && this.status == 200) {
+             alert(this.responseText);
+         }
+    };
+    xhttp.open("POST", "https://8fd9tsmkn3.execute-api.eu-north-1.amazonaws.com/PROD/feedback", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(data));
+    console.log(JSON.stringify(xhttp));
+    
+    }
+    </script>
+        
+</body>
+    
